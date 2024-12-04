@@ -1,20 +1,35 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  createRoutesFromElements,
+} from "react-router-dom";
 import Login from "./pages/Login";
 import MainLayout from "./layout/MainLayout";
+import Students from "./pages/Students";
+import { loader as studentLoader } from "./pages/Students";
+import AuthContextProvider from "./store/auth-context";
+import Student from "./pages/Student";
 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Login />} />
+        <Route path="students">
+          <Route index element={<Students />} loader={studentLoader} />
+          <Route path=":id" element={<Student />} />
+        </Route>
+      </Route>
+    </Route>
+  )
+);
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Login />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AuthContextProvider>
+      <RouterProvider router={router} />;
+    </AuthContextProvider>
   );
 }
 
