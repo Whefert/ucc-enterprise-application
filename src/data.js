@@ -40,6 +40,8 @@ export const studentData = [
     },
     program: "Information Technology",
     gpa: 3.5,
+    advisor: "Otis Osbourne",
+    completedCredits: 60,
     status: "Active",
   },
   {

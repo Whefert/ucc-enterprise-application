@@ -4,7 +4,7 @@ import { studentData } from "../data";
 import { useRef } from "react";
 import FuzzySearch from "fuzzy-search";
 import { Link } from "react-router-dom";
-import Student from "./Student";
+import EnrolledCourses from "./EnrolledCourses";
 
 function Students() {
   const [students, setStudents] = useState(useLoaderData());
