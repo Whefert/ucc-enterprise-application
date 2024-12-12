@@ -15,6 +15,7 @@ import StudentLayout from "./layout/StudentLayout";
 import ContactDetails from "./components/ContactDetails";
 import NextOfKin from "./components/NextOfKin";
 import { loader as studentLoader } from "./layout/StudentLayout";
+import Courses from "./pages/Courses";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
             <Route path="next_of_kin" element={<NextOfKin />} />
           </Route>
         </Route>
+        <Route path="courses" element={<Courses />} />
       </Route>
     </Route>
   )

@@ -1,0 +1,117 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "code": "IT101",
+      "title": "React - The Complete Guide (incl Hooks, React Router, Redux)",
+      "credits": 3,
+      "degreeLevel": "Undergraduate",
+      "prerequisites": ["JavaScript", "HTML", "CSS"]
+    }
+  ],
+
+  "courseSchedule": [
+    {
+      "id": 1,
+      "courseId": 1,
+      "semester": "Fall",
+      "year": 2021,
+      "lecturer": 1,
+      "day": ["Monday", "Wednesday"],
+      "time": "9:00 AM - 10:30 AM",
+      "location": "Room 101"
+    }
+  ],
+  "lecturerData": [
+    {
+      "id": 1,
+      "name": {
+        "title": "Mr.",
+        "first": "John",
+        "middle": "Jack",
+        "last": "Doe"
+      },
+      "department": "Information Technology",
+      "position": "Lecturer"
+    }
+  ],
+  "studentData": [
+    {
+      "id": 20202584,
+      "firstName": "Jefferson",
+      "middleName": "Jerome",
+      "lastName": "Daley",
+      "contactDetails": {
+        "student_email": "jefferson.d@stu.ucc.edu.jm",
+        "personal_email": "jefferson.d@gmail.com",
+        "mobile_number": "876-123-4567",
+        "home_number": "876-765-4321",
+        "work_number": "876-876-8765"
+      },
+      "address": {
+        "street": "123 Main Street",
+        "city": "Kingston",
+        "parish": "Kingston",
+        "country": "Jamaica"
+      },
+      "next_of_kin": {
+        "name": "Jane Doe",
+        "relationship": "Mother",
+        "contactDetails": {
+          "personal_email": "jefferson.d@gmail.com",
+          "mobile_number": "876-123-4567",
+          "home_number": "876-765-4321",
+          "work_number": "876-876-8765"
+        }
+      },
+      "program": "Information Technology",
+      "gpa": 3.5,
+      "advisor": "Otis Osbourne",
+      "completedCredits": 60,
+      "status": "Active"
+    },
+    {
+      "id": 20222591,
+      "firstName": "Shane",
+      "middleName": "Jerome",
+      "lastName": "Watson",
+      "contactDetails": {
+        "student_email": "shane.w@stu.ucc.edu.jm",
+        "personal_email": "shane.w@gmail.com",
+        "mobile_number": "876-123-4567",
+        "home_number": "876-765-4321",
+        "work_number": "876-876-8765"
+      },
+      "address": {
+        "street": "123 Main Street",
+        "city": "Kingston",
+        "parish": "Kingston",
+        "country": "Jamaica"
+      },
+      "next_of_kin": {
+        "name": "Jane Doe",
+        "relationship": "Mother",
+        "contactDetails": {
+          "personal_email": "shane_mom.watson@gmail.com",
+          "mobile_number": "876-123-4567",
+          "home_number": "876-765-4321",
+          "work_number": "876-876-8765"
+        }
+      },
+      "program": "Tourism & Hospitality Management",
+      "gpa": 3.5,
+      "status": "Active"
+    }
+  ],
+  "courseEnrollment": [
+    {
+      "studentId": 20202584,
+      "courseScheduleId": 1,
+      "courseGrade": {
+        "courseWork": 80,
+        "finalExam": 90,
+        "letterGrade": "A"
+      }
+    }
+  ]
+}
