@@ -33,7 +33,7 @@ function StudentTable({ students, ...props }) {
                 {student.ucc_email}
               </td>
               <td className="border border-blue-600 p-2">
-                {student?.program_of_study}
+                {student?.program_of_study} - {student?.degree_level}
               </td>
               <td className="border border-blue-600 p-2">
                 {student?.enrollment_status}

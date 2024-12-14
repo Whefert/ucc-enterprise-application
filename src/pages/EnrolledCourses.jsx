@@ -12,7 +12,6 @@ function EnrolledCourses({ enrolledCourses, ...props }) {
         <tr>
           <th className="border border-blue-600 px-2 ">Course #</th>
           <th className="border border-blue-600 px-2">Course Name</th>
-          <th className="border border-blue-600 px-2 ">Lecturer</th>
           <th className="border border-blue-600 px-2 ">Days</th>
           <th className="border border-blue-600 px-2">Semester/Year</th>
           <th className="border border-blue-600 px-2">Course Work Grade</th>
@@ -35,9 +34,7 @@ function EnrolledCourses({ enrolledCourses, ...props }) {
             <td className="border border-blue-600 p-2">
               {course?.course_schedule?.course.title}
             </td>
-            <td className="border border-blue-600 p-2">
-              {course?.course_schedule?.course.title}
-            </td>
+
             <td className="border border-blue-600 p-2">
               {course?.course_schedule?.day1} - {course?.course_schedule?.day2}{" "}
               {course?.course_schedule?.start_time} -{" "}

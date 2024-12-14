@@ -56,7 +56,7 @@ function Faculty() {
   function handleSearch(e) {
     //check if search value is empty
     //check if search value is less than 3 characters
-    if (e.target.value < 3) {
+    if (e.target.value.length < 3) {
       setFaculty(fData);
       setFilter({ department: "all", position: "all" });
       return;

@@ -29,6 +29,16 @@ function StudentLayout() {
 
   return (
     <main className="w-[1100px] mx-auto bg-slate-100  gap-5 grid grid-cols-[50%,_auto_,_auto_] p-5 rounded-md shadow-lg my-5  ">
+      <div className="col-span-3">
+        <Heading type="h1">
+          {student.student.user.first_name.concat(
+            " ",
+            student.student.user.last_name
+          )}
+        </Heading>
+        <p className="text-xs">Id#: {student.student.id}</p>
+      </div>
+
       <StudentCard student={student.student} />
       <AddressCard address={student.student.user.address} />
       <ContactCard contact={student.student.user.contact_details} />

@@ -29,7 +29,9 @@ function TaughtCourses({ taughtCourses, ...props }) {
               {course?.course_schedule?.course.title}
             </td>
             <td className="border border-blue-600 p-2">
-              {course?.course_schedule?.course.title}
+              {course?.lecturer.user.first_name
+                .concat(" ")
+                .concat(course?.lecturer.user.last_name)}
             </td>
             <td className="border border-blue-600 p-2">
               {course?.course_schedule?.day1} - {course?.course_schedule?.day2}{" "}
@@ -57,5 +59,6 @@ function loader({ params, request }) {
   const id = params.id;
   //return the student data
   const student = studentData.find((student) => student.id === id);
+
   return student;
 }

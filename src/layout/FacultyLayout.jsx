@@ -19,10 +19,7 @@ function FacultyLayout() {
       setFaculty((prevFaculty) => {
         return {
           ...prevFaculty,
-          faculty: {
-            ...prevFaculty.faculty,
-            picture: data.results[0].picture.large,
-          },
+          picture: data.results[0].picture.large,
         };
       });
     })();
@@ -30,6 +27,12 @@ function FacultyLayout() {
 
   return (
     <main className="w-[1100px] mx-auto bg-slate-100  gap-5 grid grid-cols-[50%,_auto_,_auto_] p-5 rounded-md shadow-lg my-5  ">
+      <div className="col-span-3">
+        <Heading type="h1">
+          {faculty.user.first_name.concat(" ", faculty.user.last_name)}
+        </Heading>
+        <p className="text-xs">Id#: {faculty.id}</p>
+      </div>
       <FacultyCard faculty={faculty} />
       <AddressCard address={faculty.user.address} />
       <ContactCard contact={faculty.user.contact_details} />
@@ -53,6 +56,8 @@ export async function loader({ params, request }) {
     import.meta.env.VITE_BACKEND_URL + `course_schedule_lecturer/${params.id}`;
   // Get faculty lecturers data
   const taughtCourses = await axios.get(facultyLecturersUrl);
+
+  console.log(taughtCourses.data);
   return {
     fData: facultyRepresponse.data,
     tCourses: taughtCourses.data,

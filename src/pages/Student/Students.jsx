@@ -81,7 +81,7 @@ function Students() {
   function handleSearch(e) {
     //check if search value is empty
     //check if search value is less than 3 characters
-    if (e.target.value < 3) {
+    if (e.target.value.length < 3) {
       setStudents(studentData);
       setFilter({ status: "all", program: "all" });
       return;
