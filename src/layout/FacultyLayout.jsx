@@ -2,18 +2,17 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import StudentCard from "../components/StudentCard";
 
-function StudentLayout() {
-  const [student, setStudent] = useState(useLoaderData());
+function FacultyLayout() {
+  const [faculty, setFaculty] = useState(useLoaderData());
 
   useEffect(() => {
     (async () => {
       const response = await fetch(`https://randomuser.me/api/`);
       const data = await response.json();
-      setStudent((prevStudent) => {
+      setFaculty((prevFaculty) => {
         return {
-          ...prevStudent,
+          ...prevFaculty,
           picture: data.results[0].picture.large,
         };
       });
@@ -56,46 +55,44 @@ function StudentLayout() {
           </NavLink>
         </div>
       </menu>
-      <div>
-        <StudentCard student={student} />
-        {/* <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5">
         <div className="flex gap-2 p-4">
           <div>
             <img
-              src={student.picture}
+              src={faculty.picture}
               className="h-[150px] w-[150px] rounded-[50%]"
-              alt={student.user.first_name.concat(" ", student.user.last_name)}
+              alt={faculty.user.first_name.concat(" ", faculty.user.last_name)}
             />
           </div>
           <div className="flex flex-col justify-between">
             <h1 className="text-2xl">
-              Student Name:{" "}
-              {student.user.first_name.concat(" ", student.user.last_name)}
+              Faculty Name:{" "}
+              {faculty.user.first_name.concat(" ", faculty.user.last_name)}
             </h1>
             <div className="flex gap-3">
-              <p>Student Id: {student.id}</p>
-              <p>Program: {student.program_of_study}</p>
+              <p>Faculty Id: {faculty.id}</p>
+              <p>Program: {faculty.program_of_study}</p>
             </div>
             <div className="flex gap-3">
-              <p>GPA: {student.gpa}</p>
-              <p>Student email: {student.ucc_email}</p>
+              <p>GPA: {faculty.gpa}</p>
+              <p>Faculty email: {faculty.ucc_email}</p>
             </div>
             <div className="flex gap-3">
-              <p>Completed Credits: {student?.completedCredits}</p>
-              <p>Advisor: {student?.advisor}</p>
+              <p>Completed Credits: {faculty?.completedCredits}</p>
+              <p>Advisor: {faculty?.advisor}</p>
             </div>
           </div>
-        </div> */}
-        <Outlet context={[student, setStudent]} />
+        </div>
+        <Outlet context={[faculty, setFaculty]} />
       </div>
     </main>
   );
 }
 
-export default StudentLayout;
+export default FacultyLayout;
 
 export async function loader({ params, request }) {
-  const url = import.meta.env.VITE_BACKEND_URL + `student/${params.id}`;
+  const url = import.meta.env.VITE_BACKEND_URL + `staff/${params.id}`;
   const response = await axios.get(url);
   return response.data;
 }

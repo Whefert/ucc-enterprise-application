@@ -1,5 +1,5 @@
 {
-  "courses": [
+  "course": [
     {
       "id": 1,
       "code": "IT101",
@@ -35,7 +35,7 @@
       "position": "Lecturer"
     }
   ],
-  "studentData": [
+  "student": [
     {
       "id": 20202584,
       "firstName": "Jefferson",

@@ -1,5 +1,3 @@
-import React from "react";
-
 function Heading({ type, children }) {
   let h1 = <h1 className="text-2xl">{children}</h1>;
   let h2 = <h2 className="text-xl">{children}</h2>;

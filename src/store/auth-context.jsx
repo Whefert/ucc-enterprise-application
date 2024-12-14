@@ -8,7 +8,7 @@ export const AuthContext = createContext({
 });
 
 export default function AuthContextProvider({ children }) {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(true);
 
   function loginHandler(email, password) {
     if (email == "admin@ucc.edu.jm" && password == "admin") {

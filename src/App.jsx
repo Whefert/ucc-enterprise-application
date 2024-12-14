@@ -7,15 +7,20 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import MainLayout from "./layout/MainLayout";
-import Students from "./pages/Students";
-import { loader as studentsLoader } from "./pages/Students";
+import Students from "./pages/Student/Students";
+import { loader as studentsLoader } from "./pages/Student/Students";
 import AuthContextProvider from "./store/auth-context";
 import EnrolledCourses from "./pages/EnrolledCourses";
 import StudentLayout from "./layout/StudentLayout";
 import ContactDetails from "./components/ContactDetails";
 import NextOfKin from "./components/NextOfKin";
+import AllFaculty from "./pages/AllFaculty";
 import { loader as studentLoader } from "./layout/StudentLayout";
+import { loader as allFacultyLoader } from "./pages/AllFaculty";
+import { loader as facultyLoader } from "./layout/FacultyLayout";
+import { loader as courseLoader } from "./pages/Courses";
 import Courses from "./pages/Courses";
+import FacultyLayout from "./layout/FacultyLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,7 +35,15 @@ const router = createBrowserRouter(
             <Route path="next_of_kin" element={<NextOfKin />} />
           </Route>
         </Route>
-        <Route path="courses" element={<Courses />} />
+        <Route path="faculty">
+          <Route index element={<AllFaculty />} loader={allFacultyLoader} />
+          <Route
+            path=":id"
+            element={<FacultyLayout />}
+            loader={facultyLoader}
+          />
+        </Route>
+        <Route path="courses" element={<Courses />} loader={courseLoader} />
       </Route>
     </Route>
   )
