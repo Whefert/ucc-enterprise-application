@@ -1,8 +1,13 @@
 import dayjs from "dayjs";
 
-function EnrolledCourses({ enrolledCourses }) {
+function EnrolledCourses({ enrolledCourses, ...props }) {
   return (
-    <table className=" border-collapse border text-center border-blue-600">
+    <table
+      className={
+        "table-auto border-collapse border text-center border-blue-600" +
+        props.className
+      }
+    >
       <thead className="bg-blue-500 text-white">
         <tr>
           <th className="border border-blue-600 px-2 ">Course #</th>
@@ -17,6 +22,7 @@ function EnrolledCourses({ enrolledCourses }) {
           <th className="border border-blue-600 px-2">Final Grade</th>
           <th className="border border-blue-600 px-2">Credits</th>
           <th className="border border-blue-600 px-2">Letter Grade</th>
+          <th className="border border-blue-600 px-2">Quality Points</th>
         </tr>
       </thead>
       <tbody>
@@ -47,12 +53,17 @@ function EnrolledCourses({ enrolledCourses }) {
             <td className="border border-blue-600 p-2">
               {course?.finalExamProjectGrade}
             </td>
-            <td className="border border-blue-600 p-2">{course?.finalGrade}</td>
+            <td className="border border-blue-600 p-2">
+              {course?.final_grade}
+            </td>
             <td className="border border-blue-600 p-2">
               {course?.course_schedule?.course.credits}
             </td>
             <td className="border border-blue-600 p-2">
-              {course?.letterGrade}
+              {course?.letter_grade}
+            </td>
+            <td className="border border-blue-600 p-2">
+              {course?.quality_points}
             </td>
             {/* <td className="border border-blue-600 p-2">{course.schedule}</td>
               <td className="border border-blue-600 p-2">{course.year}</td>

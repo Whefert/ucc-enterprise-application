@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import ucc_logo from "../assets/ucc_logo.png";
 import Button from "../UI/Button";
 import { useContext } from "react";
@@ -37,7 +37,11 @@ function MainNav() {
                 <li>
                   <NavLink
                     to="students"
-                    className="text-black hover:border-b-2 border-black"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-black border-b-2 border-black"
+                        : "text-black"
+                    }
                   >
                     Students
                   </NavLink>
@@ -45,7 +49,12 @@ function MainNav() {
                 <li>
                   <NavLink
                     to="faculty"
-                    className="text-black hover:border-b-2 border-black"
+                    end
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-black border-b-2 border-black"
+                        : "text-black"
+                    }
                   >
                     Faculty
                   </NavLink>
@@ -53,7 +62,11 @@ function MainNav() {
                 <li>
                   <NavLink
                     to="courses"
-                    className="text-black hover:border-b-2 border-black"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-black border-b-2 border-black"
+                        : "text-black"
+                    }
                   >
                     Courses
                   </NavLink>

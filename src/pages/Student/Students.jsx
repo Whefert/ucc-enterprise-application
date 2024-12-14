@@ -1,169 +1,166 @@
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useRef } from "react";
 import Search from "../../components/Search";
-import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
-
+import FuzzySearch from "fuzzy-search";
 import axios from "axios";
 import StudentTable from "./StudentTable";
-import StudentCard from "../../components/StudentCard";
-import AddressCard from "../../components/AddressCard";
+
 import Heading from "../../UI/Heading";
-import ContactCard from "../../components/ContactCard";
-import EnrolledCourses from "../EnrolledCourses";
 
 function Students() {
+  // Save initial data received from the loader for resetting data
+  const studentData = useLoaderData();
+  //save initial data received from the loader to state
   const [students, setStudents] = useState(useLoaderData());
-  const [filter, setFilter] = useState(null);
-  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [enrollmentStatus, setEnrollmentStatus] = useState([]);
+  const [programs, setPrograms] = useState([]);
+  const [filter, setFilter] = useState({
+    status: "all",
+    program: "all",
+  });
 
-  const searchRef = useRef(null);
-
-  //Get enrolled courses
   useEffect(() => {
+    //get all enrollment status from the database
     (async () => {
       const response = await axios.get(
-        import.meta.env.VITE_BACKEND_URL + `student/${students[0].id}/courses`
+        import.meta.env.VITE_BACKEND_URL + "enrollment_status"
       );
-      console.log(response.data);
-      setEnrolledCourses(response.data);
+      setEnrollmentStatus(response.data);
+    })();
+
+    //get all programs of study from the database
+    (async () => {
+      const response = await axios.get(
+        import.meta.env.VITE_BACKEND_URL + "program_of_study"
+      );
+      setPrograms(response.data);
     })();
   }, []);
 
-  function handleFilterChange(e) {}
+  //update student data based on the filter value
+  useEffect(() => {
+    //if both filter values are all, set students to the initial data
+    if (filter.status === "all" && filter.program === "all") {
+      setStudents(studentData);
+      return;
+    }
 
-  function handleSearch() {
+    //if status is all, filter students based on program
+    if (filter.status === "all") {
+      setStudents(
+        studentData.filter(
+          (student) => student.program_of_study === filter.program
+        )
+      );
+      return;
+    }
+    //if program is all, filter students based on status
+    if (filter.program === "all") {
+      setStudents(
+        studentData.filter(
+          (student) => student.enrollment_status === filter.status
+        )
+      );
+      return;
+    }
+    //if both status and program are not all, filter students based on both status and program
+    setStudents(
+      studentData.filter(
+        (student) =>
+          student.status === filter.status &&
+          student.program_of_study === filter.program
+      )
+    );
+  }, [filter]);
+
+  function handleFilterChange(e) {
+    //update the filter state based on the filter value
+    setFilter({ ...filter, [e.target.name]: e.target.value });
+  }
+
+  function handleSearch(e) {
     //check if search value is empty
     //check if search value is less than 3 characters
-    if (searchRef.current.value.length < 3) {
+    if (e.target.value < 3) {
       setStudents(studentData);
+      setFilter({ status: "all", program: "all" });
       return;
     }
     //if search value is greater than 3 characters query the database for the students that match the query
     const searcher = new FuzzySearch(
       students,
-      ["firstName", "lastName", "id"],
+      ["user.first_name", "user.last_name", "user.id"],
       {
         caseSensitive: false,
       }
     );
-    console.log(searchRef.current.value);
-    console.log(searcher.search(searchRef.current.value));
-    setStudents(searcher.search(searchRef.current.value));
+
+    setStudents(searcher.search(e.target.value));
   }
 
   return (
     <>
       <div className="grid grid-cols-8 h-lvh gap-5 p-5">
-        <aside className="bg-slate-100 col-span-2 flex flex-col gap-5 shadow-md p-5 rounded-md">
+        <aside className="bg-slate-100 col-span-2 flex flex-col gap-2 shadow-md p-5 rounded-md">
           {/* Search component */}
           <Search
             label="Search for a student: "
             placeholder="Start typing to search"
             handleSearch={handleSearch}
           />
-          <div className="flex justify-between">
+          <div className="flex gap-2 flex-col justify-between">
             <div className="flex flex-col gap-2">
-              <label htmlFor="filter">Status</label>
+              <label htmlFor="status">Status</label>
               <select
-                name="filter"
-                id="filter"
+                name="status"
+                id="status"
                 className="border border-blue-600 rounded-sm p-2"
+                onChange={handleFilterChange}
               >
-                <option value="all">All</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+                <option value={"all"}>{"All"}</option>
+                {enrollmentStatus.map((s) => (
+                  <option value={s.status}>{s.status}</option>
+                ))}
               </select>
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="filter">Program</label>
+              <label htmlFor="program">Program</label>
               <select
-                name="filter"
-                id="filter"
+                name="program"
+                id="program"
                 className="border border-blue-600 rounded-sm p-2"
+                onChange={handleFilterChange}
               >
                 <option value="all">All</option>
-                <option value="active">Information Technology</option>
-                <option value="inactive">Tourism & Hospitality</option>
+                {programs.map((p) => (
+                  <option value={p.name}>{p.name}</option>
+                ))}
               </select>
             </div>
           </div>
         </aside>
         <main className="col-span-6 grid grid-cols-[45%_auto_auto] auto-rows-min gap-5 p-5 rounded-md">
           {/* student table to display data */}
-          {/* <StudentTable students={students} /> */}
-          <div className="col-span-3">
-            <Heading type="h1"> {students[0].user.first_name}</Heading>
+          <div className="col-span-3 flex flex-col ">
+            <Heading type="h1">Students</Heading>
+            <p className="text-sm">Found {students.length}</p>
           </div>
+          <StudentTable students={students} className="col-span-3" />
 
-          <StudentCard
-            student={students[0]}
-            className="bg-slate-100 rounded-md p-2"
-          />
-          <AddressCard
-            address={students[0].user.address}
-            className="bg-slate-100 rounded-md p-2"
-          />
-          <ContactCard
-            contact={students[0].user.contact_details}
-            className="bg-slate-100 rounded-md p-2"
-          />
-
-          <div className="col-span-3">
-            <Heading type="h1"> Enrolled Courses</Heading>
-            <EnrolledCourses enrolledCourses={enrolledCourses} />
-          </div>
+          {/* <Table
+            data={students}
+            columns={[
+              "id",
+              "first_name",
+              "last_name",
+              "ucc_email",
+              "program_of_study",
+              "enrollment_status",
+            ]}
+          /> */}
         </main>
       </div>
     </>
-    // <main className="mx-auto">
-    //   <div className="flex flex-col gap-5 items-center bg-white p-5 rounded-sm">
-    //     <div className="flex flex-col gap-2">
-    //       {/* Search component */}
-    //       <div className="flex gap-2 items-center">
-    //         <label htmlFor="search">Search for a student: </label>
-    //         <input
-    //           type="text"
-    //           name="search"
-    //           id="search"
-    //           placeholder="Start typing to search"
-    //           className="border border-blue-600 rounded-sm p-2"
-    //           ref={searchRef}
-    //           onChange={handleSearch}
-    //         />
-    //       </div>
-    //       {/* Filter component */}
-    //       {/* <div className="flex ">
-    //         <div className="flex flex-col gap-2">
-    //           <label htmlFor="filter">Status</label>
-    //           <select
-    //             name="filter"
-    //             id="filter"
-    //             className="border border-blue-600 rounded-sm p-2"
-    //           >
-    //             <option value="all">All</option>
-    //             <option value="active">Active</option>
-    //             <option value="inactive">Inactive</option>
-    //           </select>
-    //         </div>
-    //         <div className="flex flex-col gap-2">
-    //           <label htmlFor="filter">Program</label>
-    //           <select
-    //             name="filter"
-    //             id="filter"
-    //             className="border border-blue-600 rounded-sm p-2"
-    //           >
-    //             <option value="all">All</option>
-    //             <option value="active">Information Technology</option>
-    //             <option value="inactive">Tourism & Hospitality</option>
-    //           </select>
-    //         </div>
-    //       </div> */}
-    //     </div>
-
-    //   </div>
-    // </main>
   );
 }
 
@@ -172,6 +169,6 @@ export default Students;
 export async function loader() {
   const url = import.meta.env.VITE_BACKEND_URL + "student/";
   const response = await axios.get(url);
-  console.log(response.data[0].user);
+  console.log(response.data[0]);
   return response.data;
 }

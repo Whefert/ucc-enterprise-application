@@ -14,13 +14,13 @@ import EnrolledCourses from "./pages/EnrolledCourses";
 import StudentLayout from "./layout/StudentLayout";
 import ContactDetails from "./components/ContactDetails";
 import NextOfKin from "./components/NextOfKin";
-import AllFaculty from "./pages/AllFaculty";
 import { loader as studentLoader } from "./layout/StudentLayout";
-import { loader as allFacultyLoader } from "./pages/AllFaculty";
+import { loader as allFacultyLoader } from "./pages/Faculty/Faculty";
 import { loader as facultyLoader } from "./layout/FacultyLayout";
 import { loader as courseLoader } from "./pages/Courses";
 import Courses from "./pages/Courses";
 import FacultyLayout from "./layout/FacultyLayout";
+import Faculty from "./pages/Faculty/Faculty";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,7 +36,7 @@ const router = createBrowserRouter(
           </Route>
         </Route>
         <Route path="faculty">
-          <Route index element={<AllFaculty />} loader={allFacultyLoader} />
+          <Route index element={<Faculty />} loader={allFacultyLoader} />
           <Route
             path=":id"
             element={<FacultyLayout />}

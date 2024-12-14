@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 
-function StudentTable({ students }) {
+function StudentTable({ students, ...props }) {
   return (
-    <table className="w-full table-auto border-collapse border text-center border-blue-600">
+    <table
+      className={
+        "table-auto border-collapse border text-center border-blue-600 " +
+        props.className
+      }
+    >
       <thead className="bg-blue-500 text-white">
         <tr>
-          <th className="border border-blue-600 px-3 ">Id</th>
+          <th className="border border-blue-600 px-3 ">Student Id</th>
           <th className="border border-blue-600 px-3">Name</th>
           <th className="border border-blue-600 px-3 w-[30%]">Email</th>
           <th className="border border-blue-600 px-3 w-[25%]">Program</th>
@@ -25,12 +30,14 @@ function StudentTable({ students }) {
                 {student.user.first_name.concat(" ", student.user.last_name)}
               </td>
               <td className="border border-blue-600 p-2">
-                {student.user.contact_details.email}
+                {student.ucc_email}
               </td>
               <td className="border border-blue-600 p-2">
-                {student.program_of_study}
+                {student?.program_of_study}
               </td>
-              <td className="border border-blue-600 p-2">{student?.status}</td>
+              <td className="border border-blue-600 p-2">
+                {student?.enrollment_status}
+              </td>
             </tr>
           ))}
       </tbody>
