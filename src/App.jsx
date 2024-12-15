@@ -17,7 +17,8 @@ import NextOfKin from "./components/NextOfKin";
 import { loader as studentLoader } from "./layout/StudentLayout";
 import { loader as allFacultyLoader } from "./pages/Faculty/Faculty";
 import { loader as facultyLoader } from "./layout/FacultyLayout";
-import { loader as courseLoader } from "./pages/Courses/Courses";
+import { loader as coursesLoader } from "./pages/Courses/Courses";
+import { loader as courseLoader } from "./layout/CourseLayout";
 import Courses from "./pages/Courses/Courses";
 import FacultyLayout from "./layout/FacultyLayout";
 import Faculty from "./pages/Faculty/Faculty";
@@ -45,8 +46,8 @@ const router = createBrowserRouter(
           />
         </Route>
         <Route path="courses">
-          <Route index element={<Courses />} loader={courseLoader} />
-          <Route path=":id" element={<CourseLayout />} loader={facultyLoader} />
+          <Route index element={<Courses />} loader={coursesLoader} />
+          <Route path=":id" element={<CourseLayout />} loader={courseLoader} />
         </Route>
       </Route>
     </Route>

@@ -3,17 +3,20 @@ import ucc_students from "../assets/ucc_students.jpg";
 import Button from "../UI/Button";
 import { useContext } from "react";
 import { AuthContext } from "../store/auth-context";
-import { Form, useNavigate } from "react-router-dom";
+import { Form, Navigate, useNavigate } from "react-router-dom";
 
 function Login() {
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const loginResult = authCtx.onLogin(email, password);
+    const loginResult = await authCtx.onLogin(email, password);
+    if (loginResult) {
+      navigate("/students");
+    }
 
     if (!loginResult) {
       alert("Invalid login credentials  ");
@@ -81,10 +84,6 @@ function Login() {
       </div>
     </>
   );
-}
-
-export function loginLoader() {
-  //
 }
 
 export default Login;

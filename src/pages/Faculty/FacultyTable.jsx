@@ -12,7 +12,7 @@ function FacultyTable({ faculty, ...props }) {
         <tr>
           <th className="border border-blue-600 px-3 ">Employee Id</th>
           <th className="border border-blue-600 px-3">Title</th>
-          <th className="border border-blue-600 px-3 w-[30%]"> Name</th>
+          <th className="border border-blue-600 px-3 "> Name</th>
           <th className="border border-blue-600 px-3">Department</th>
           <th className="border border-blue-600 px-3">Position</th>
           <th className="border border-blue-600 px-3">Email</th>

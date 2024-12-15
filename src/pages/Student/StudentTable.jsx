@@ -12,8 +12,8 @@ function StudentTable({ students, ...props }) {
         <tr>
           <th className="border border-blue-600 px-3 ">Student Id</th>
           <th className="border border-blue-600 px-3">Name</th>
-          <th className="border border-blue-600 px-3 w-[30%]">Email</th>
-          <th className="border border-blue-600 px-3 w-[25%]">Program</th>
+          <th className="border border-blue-600 px-3 ">Email</th>
+          <th className="border border-blue-600 px-3 ">Program</th>
           <th className="border border-blue-600 px-3">Status</th>
         </tr>
       </thead>

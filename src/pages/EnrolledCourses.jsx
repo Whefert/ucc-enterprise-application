@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import { Link } from "react-router-dom";
 
 function EnrolledCourses({ enrolledCourses, ...props }) {
   return (
@@ -28,7 +28,12 @@ function EnrolledCourses({ enrolledCourses, ...props }) {
         {enrolledCourses.map((course) => (
           <tr key={course.id}>
             <td className="border border-blue-600 p-2">
-              {course?.course_schedule?.course.code}
+              <Link
+                to={`/courses/${course.course_schedule?.course.id}`}
+                className="underline text-blue-900"
+              >
+                {course?.course_schedule?.course.code}
+              </Link>
             </td>
 
             <td className="border border-blue-600 p-2">

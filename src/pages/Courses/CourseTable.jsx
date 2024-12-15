@@ -10,7 +10,6 @@ function CourseTable({ courses, ...props }) {
     >
       <thead className="bg-blue-500 text-white">
         <tr>
-          <th className="border border-blue-600 px-3 ">CourseI d</th>
           <th className="border border-blue-600 px-3 ">Code</th>
           <th className="border border-blue-600 px-3">Title</th>
           <th className="border border-blue-600 px-3">Credits</th>
@@ -20,13 +19,12 @@ function CourseTable({ courses, ...props }) {
         {courses &&
           courses.map((course) => (
             <tr key={course.id}>
-              <td className="border border-blue-600 text-center p-2">
+              <td className="border border-blue-600 p-2">
+                {" "}
                 <Link to={`${course.id}`} className="underline text-blue-900">
-                  {course.id}
+                  {course?.code}{" "}
                 </Link>
               </td>
-
-              <td className="border border-blue-600 p-2">{course?.code}</td>
               <td className="border border-blue-600 p-2">{course?.title}</td>
               <td className="border border-blue-600 p-2">{course?.credits}</td>
             </tr>
